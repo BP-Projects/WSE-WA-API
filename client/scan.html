@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WA-API by BP-Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+        body {
+        font-family: 'Montserrat', sans-serif;
+        padding: 20px;
+        }
+        #app {
+        max-width: 500px;
+        margin: 20px auto;
+        }
+        #qrcode {
+        width: 50%;
+        margin: 10px 0;
+        border: 2px solid #efefef;
+        border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>WSE WA-API</h1>
+        <p>by BP-Project</p>
+        <img src="./assets/loader.gif" alt="loading" id="qrcode">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js" crossorigin="anonymous"></script>
+		<script>
+			const qrcode = document.getElementById("qrcode")
+			const socket = io()
+
+			socket.on("qr", src => {
+				qrcode.setAttribute("src", src)
+				qrcode.setAttribute("alt", "qrcode")
+			})
+
+			socket.on("qrstatus", src => {
+				qrcode.setAttribute("src", src)
+				qrcode.setAttribute("alt", "loading")
+			})
+
+
+
+			socket.on("log", log => {
+				console.log(log)
+			})
+		</script>
+    </div>
+</body>
+</html>
